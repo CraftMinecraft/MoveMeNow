@@ -1,4 +1,4 @@
-package net.craftminecraft.bungee.bungeekickmove;
+package net.craftminecraft.bungee.movemenow;
 
 import java.io.File;
 import java.util.ArrayList;

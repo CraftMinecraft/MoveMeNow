@@ -1,8 +1,8 @@
-package net.craftminecraft.bungee.bungeekickmove;
+package net.craftminecraft.bungee.movemenow;
 import net.md_5.bungee.api.plugin.Plugin;
 
 
-public class BungeeKickMove extends Plugin {
+public class MoveMeNow extends Plugin {
 	MainConfig config;
 	@Override
 	public void onEnable() {

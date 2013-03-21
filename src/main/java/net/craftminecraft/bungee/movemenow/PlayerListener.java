@@ -1,4 +1,4 @@
-package net.craftminecraft.bungee.bungeekickmove;
+package net.craftminecraft.bungee.movemenow;
 
 import java.util.Iterator;
 
@@ -8,8 +8,8 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.event.ServerKickEvent;
 
 public class PlayerListener implements Listener {
-	BungeeKickMove plugin;
-	public PlayerListener(BungeeKickMove plugin) {
+	MoveMeNow plugin;
+	public PlayerListener(MoveMeNow plugin) {
 		this.plugin = plugin;
 	}
 	

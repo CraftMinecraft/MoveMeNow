@@ -14,8 +14,8 @@
     </profile>
   </profiles>
   <groupId>net.craftminecraft.bungee</groupId>
-  <artifactId>bungeekickmove</artifactId>
-  <version>0.5-b${build.number}</version>
+  <artifactId>movemenow</artifactId>
+  <version>0.1-b${build.number}</version>
   <repositories>
     <repository>
       <id>localhost</id>
