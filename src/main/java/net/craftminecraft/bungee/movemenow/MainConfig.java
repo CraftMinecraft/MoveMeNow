@@ -4,12 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.craftminecraft.bungee.bungeeyaml.InvalidConfigurationException;
 import net.craftminecraft.bungee.bungeeyaml.supereasyconfig.Config;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class MainConfig extends Config {
 	public MainConfig(Plugin plugin) {
 		this.CONFIG_FILE = new File(plugin.getDataFolder(), "config.yml");
+		try {
+			this.init();
+		} catch (InvalidConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String mode = "blacklist";
