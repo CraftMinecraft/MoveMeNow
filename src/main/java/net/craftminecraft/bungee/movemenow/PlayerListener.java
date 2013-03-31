@@ -15,6 +15,9 @@ public class PlayerListener implements Listener {
 	
 	@Subscribe
 	public void onServerKickEvent(ServerKickEvent ev) {
+		if (ev.getPlayer().getServer().getInfo().getName().equalsIgnoreCase(plugin.getConfig().servername)) {
+			return;
+		}
 		Iterator<String> it = this.plugin.getConfig().list.iterator();
 		if (this.plugin.getConfig().mode.equals("whitelist")) {
 			boolean good = false;
