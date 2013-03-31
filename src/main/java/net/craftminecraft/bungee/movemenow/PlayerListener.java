@@ -27,6 +27,8 @@ public class PlayerListener implements Listener {
 			if (good) {
 				ev.setCancelled(true);
 				ev.setCancelServer(plugin.getProxy().getServerInfo(plugin.getConfig().servername));
+				if (!plugin.getConfig().movemsg.trim().isEmpty())
+					ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
 			}
 		} else {
 			while (it.hasNext()) {
@@ -37,6 +39,8 @@ public class PlayerListener implements Listener {
 			}
 			ev.setCancelled(true);
 			ev.setCancelServer(plugin.getProxy().getServerInfo(plugin.getConfig().servername));
+			if (!plugin.getConfig().movemsg.trim().isEmpty())
+				ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
 		}
 	}
 }
