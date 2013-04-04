@@ -9,6 +9,7 @@ public class MoveMeNow extends Plugin {
 	public void onEnable() {
 		config = new MainConfig(this);
 		this.getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
+		this.getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
 	}
 
 	@Override
