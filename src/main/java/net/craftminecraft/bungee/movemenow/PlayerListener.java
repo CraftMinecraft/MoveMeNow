@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.google.common.eventbus.Subscribe;
 
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerKickEvent;
 
 public class PlayerListener implements Listener {
@@ -12,10 +13,15 @@ public class PlayerListener implements Listener {
 	public PlayerListener(MoveMeNow plugin) {
 		this.plugin = plugin;
 	}
+
+	@Subscribe
+	public void onServerChange(ServerConnectedEvent ev) {
+		this.plugin.getPlayerServer().put(ev.getPlayer().getName(), ev.getServer().getInfo().getName());
+	}
 	
 	@Subscribe
 	public void onServerKickEvent(ServerKickEvent ev) {
-		if (ev.getPlayer().getServer().getInfo().getName().equalsIgnoreCase(plugin.getConfig().servername)) {
+		if (plugin.getPlayerServer().get(ev.getPlayer().getName()).equalsIgnoreCase(plugin.getConfig().servername)) {
 			return;
 		}
 		Iterator<String> it = this.plugin.getConfig().list.iterator();
