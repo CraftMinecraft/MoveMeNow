@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.google.common.eventbus.Subscribe;
 
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerKickEvent;
 
@@ -14,6 +15,14 @@ public class PlayerListener implements Listener {
 		this.plugin = plugin;
 	}
 
+	@Subscribe
+	public void onPlayerJoin(PostLoginEvent ev) {
+		this.plugin.getPlayerServer().put(
+							ev.getPlayer().getName(), 
+							plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer()).getName()
+		);
+	}
+	
 	@Subscribe
 	public void onServerChange(ServerConnectedEvent ev) {
 		this.plugin.getPlayerServer().put(ev.getPlayer().getName(), ev.getServer().getInfo().getName());
