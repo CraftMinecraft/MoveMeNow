@@ -3,6 +3,7 @@ package net.craftminecraft.bungee.movemenow;
 import java.util.Iterator;
 
 import com.google.common.eventbus.Subscribe;
+import net.md_5.bungee.api.config.ServerInfo;
 
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.event.PostLoginEvent;
@@ -16,23 +17,20 @@ public class PlayerListener implements Listener {
 	}
 
 	@Subscribe
-	public void onPlayerJoin(PostLoginEvent ev) {
-		this.plugin.getPlayerServer().put(
-							ev.getPlayer().getName(), 
-							plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer()).getName()
-		);
-	}
-	
-	@Subscribe
-	public void onServerChange(ServerConnectedEvent ev) {
-		this.plugin.getPlayerServer().put(ev.getPlayer().getName(), ev.getServer().getInfo().getName());
-	}
-	
-	@Subscribe
 	public void onServerKickEvent(ServerKickEvent ev) {
-		if (plugin.getPlayerServer().get(ev.getPlayer().getName()).equalsIgnoreCase(plugin.getConfig().servername)) {
-			return;
-		}
+        // Protection against NullPointerException
+        ServerInfo kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
+        if (ev.getPlayer().getServer() != null) {
+            kickedFrom = ev.getPlayer().getServer().getInfo();
+        }
+
+        ServerInfo kickTo = this.plugin.getProxy().getServerInfo(plugin.getConfig().servername);
+
+        // Avoid the loop
+        if (kickedFrom.equals(kickTo)) {
+            return;
+        }
+
 		Iterator<String> it = this.plugin.getConfig().list.iterator();
 		if (this.plugin.getConfig().mode.equals("whitelist")) {
 			boolean good = false;

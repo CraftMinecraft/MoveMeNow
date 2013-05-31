@@ -10,14 +10,8 @@ import net.md_5.bungee.api.plugin.Plugin;
 
 public class MoveMeNow extends Plugin {
 	MainConfig config;
-	Map<String,String> playerServer;
 	@Override
 	public void onEnable() {
-		playerServer = new HashMap<>();
-		for (ProxiedPlayer p : this.getProxy().getPlayers()) {
-			if (p.getServer() != null)
-				playerServer.put(p.getName(), p.getServer().getInfo().getName());
-		}
 		config = new MainConfig(this);
 		this.getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
 		this.getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
@@ -30,9 +24,5 @@ public class MoveMeNow extends Plugin {
 	
 	public MainConfig getConfig() {
 		return this.config;
-	}
-	
-	public Map<String,String> getPlayerServer() {
-		return this.playerServer;
 	}
 }

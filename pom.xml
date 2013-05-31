@@ -1,21 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <!-- Set correct build version if local building -->
-  <profiles>
-    <profile>
-      <activation>
-        <property>
-          <name>!build.number</name>
-        </property>
-      </activation>
-      <properties>
-        <build.number>SNAPSHOT</build.number>
-      </properties>
-    </profile>
-  </profiles>
+  <properties>
+    <build.number>CUSTOMBUILD</build.number>
+  </properties>
   <groupId>net.craftminecraft.bungee</groupId>
   <artifactId>movemenow</artifactId>
-  <version>0.1-b${build.number}</version>
+  <version>0.2</version>
   <repositories>
     <repository>
       <id>localhost</id>
