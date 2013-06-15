@@ -8,18 +8,8 @@
   <version>0.2</version>
   <repositories>
     <repository>
-      <id>localhost</id>
-      <url>file:${project.basedir}/repo</url>
-    </repository>
-    <repository>
-      <id>sonatype-oss-public</id>
-      <url>https://oss.sonatype.org/content/groups/public/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <id>dev-cmc</id>
+      <url>http://repo.craftminecraft.net/content/groups/public/</url>
     </repository>
   </repositories>
   <dependencies>
@@ -29,9 +19,9 @@
   	  <version>1.5-SNAPSHOT</version>
   	</dependency>
   	<dependency>
-  	  <groupId>lib</groupId>
+  	  <groupId>net.craftminecraft.bungee</groupId>
   	  <artifactId>bungeeyaml</artifactId>
-  	  <version>0.0.2-SNAPSHOT</version>
+  	  <version>1.2.3</version>
   	</dependency>
   </dependencies>
   <build>

@@ -2,13 +2,13 @@ package net.craftminecraft.bungee.movemenow;
 
 import java.util.Iterator;
 
-import com.google.common.eventbus.Subscribe;
 import net.md_5.bungee.api.config.ServerInfo;
 
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.event.ServerConnectedEvent;
 import net.md_5.bungee.api.event.ServerKickEvent;
+import net.md_5.bungee.event.EventHandler;
 
 public class PlayerListener implements Listener {
 	MoveMeNow plugin;
@@ -16,7 +16,7 @@ public class PlayerListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@Subscribe
+	@EventHandler
 	public void onServerKickEvent(ServerKickEvent ev) {
         // Protection against NullPointerException
         ServerInfo kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
@@ -42,7 +42,7 @@ public class PlayerListener implements Listener {
 			}
 			if (good) {
 				ev.setCancelled(true);
-				ev.setCancelServer(plugin.getProxy().getServerInfo(plugin.getConfig().servername));
+				ev.setCancelServer(kickTo);
 				if (!plugin.getConfig().movemsg.trim().isEmpty())
 					ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
 			}
@@ -54,7 +54,7 @@ public class PlayerListener implements Listener {
 				}
 			}
 			ev.setCancelled(true);
-			ev.setCancelServer(plugin.getProxy().getServerInfo(plugin.getConfig().servername));
+			ev.setCancelServer(kickTo);
 			if (!plugin.getConfig().movemsg.trim().isEmpty())
 				ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
 		}
