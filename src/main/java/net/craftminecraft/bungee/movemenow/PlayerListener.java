@@ -1,6 +1,7 @@
 package net.craftminecraft.bungee.movemenow;
 
 import java.util.Iterator;
+import net.md_5.bungee.api.ReconnectHandler;
 
 import net.md_5.bungee.api.config.ServerInfo;
 
@@ -21,8 +22,12 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onServerKickEvent(ServerKickEvent ev) {
         // Protection against NullPointerException
-        ServerInfo kickedFrom;
-        if (ev.getPlayer().getServer() != null) { // If player finished connected, this will be set
+
+        ServerInfo kickedFrom = null;
+        if (this.plugin.getProxy().getReconnectHandler() != null) {
+            kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
+        }
+        if (ev.getPlayer().getServer() != null) {
             kickedFrom = ev.getPlayer().getServer().getInfo();
         } else if (this.plugin.getProxy().getReconnectHandler() != null) { // If first server and recohandler
             kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
@@ -37,7 +42,7 @@ public class PlayerListener implements Listener {
         ServerInfo kickTo = this.plugin.getProxy().getServerInfo(plugin.getConfig().servername);
 
         // Avoid the loop
-        if (kickedFrom.equals(kickTo)) {
+        if (kickedFrom != null && kickedFrom.equals(kickTo)) {
             return;
         }
 
