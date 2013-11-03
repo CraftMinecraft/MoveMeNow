@@ -24,12 +24,10 @@ public class PlayerListener implements Listener {
         // Protection against NullPointerException
 
         ServerInfo kickedFrom = null;
-        if (this.plugin.getProxy().getReconnectHandler() != null) {
-            kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
-        }
+
         if (ev.getPlayer().getServer() != null) {
             kickedFrom = ev.getPlayer().getServer().getInfo();
-        } else if (this.plugin.getProxy().getReconnectHandler() != null) { // If first server and recohandler
+        } else if (this.plugin.getProxy().getReconnectHandler() != null) {// If first server and recohandler
             kickedFrom = this.plugin.getProxy().getReconnectHandler().getServer(ev.getPlayer());
         } else { // If first server and no recohandler
             kickedFrom = AbstractReconnectHandler.getForcedHost(ev.getPlayer().getPendingConnection());
@@ -53,8 +51,8 @@ public class PlayerListener implements Listener {
                 if (ev.getKickReason().contains(next)) {
                     ev.setCancelled(true);
                     ev.setCancelServer(kickTo);
-                    if (!plugin.getConfig().movemsg.trim().isEmpty()) {
-                        ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
+                    if (plugin.getConfig().sendmovemsg) {
+                        ev.getPlayer().sendMessages(plugin.getConfig().parsemovemsg(ev.getKickReason()));
                     }
 
                     break; // no need to keep this up !
@@ -69,8 +67,8 @@ public class PlayerListener implements Listener {
             }
             ev.setCancelled(true);
             ev.setCancelServer(kickTo);
-            if (!plugin.getConfig().movemsg.trim().isEmpty()) {
-                ev.getPlayer().sendMessage(plugin.getConfig().parsemovemsg(ev.getKickReason()));
+            if (plugin.getConfig().sendmovemsg) {
+                ev.getPlayer().sendMessages(plugin.getConfig().parsemovemsg(ev.getKickReason()));
             }
         }
     }
