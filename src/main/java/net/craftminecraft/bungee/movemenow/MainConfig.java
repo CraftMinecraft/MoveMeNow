@@ -5,9 +5,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import net.cubespace.Yamler.Config.Config;
+import net.cubespace.Yamler.Config.InvalidConfigurationException;
 
-import net.craftminecraft.bungee.bungeeyaml.bukkitapi.InvalidConfigurationException;
-import net.craftminecraft.bungee.bungeeyaml.supereasyconfig.Config;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.plugin.Plugin;
 

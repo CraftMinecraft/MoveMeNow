@@ -19,9 +19,9 @@
             <version>1.6.2-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>net.craftminecraft.bungee</groupId>
-            <artifactId>bungeeyaml</artifactId>
-            <version>1.2.3</version>
+            <groupId>net.cubespace</groupId>
+            <artifactId>Yamler-Core</artifactId>
+            <version>1.2.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
