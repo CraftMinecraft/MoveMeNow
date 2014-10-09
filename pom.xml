@@ -20,8 +20,8 @@
         </dependency>
         <dependency>
             <groupId>net.cubespace</groupId>
-            <artifactId>Yamler-Core</artifactId>
-            <version>1.2.5-SNAPSHOT</version>
+            <artifactId>yamler-bungee</artifactId>
+            <version>2.2.3</version>
         </dependency>
     </dependencies>
     <build>
