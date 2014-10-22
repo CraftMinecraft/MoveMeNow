@@ -1,8 +1,12 @@
 package net.craftminecraft.bungee.movemenow;
 
 import java.util.Iterator;
+
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ReconnectHandler;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 
 import net.md_5.bungee.api.plugin.Listener;
@@ -37,38 +41,46 @@ public class PlayerListener implements Listener {
             }
         }
 
-        ServerInfo kickTo = this.plugin.getProxy().getServerInfo(plugin.getConfig().servername);
+        ServerInfo kickTo = this.plugin.getProxy().getServerInfo(plugin.getConfig().getString("servername"));
 
         // Avoid the loop
         if (kickedFrom != null && kickedFrom.equals(kickTo)) {
             return;
         }
 
-        Iterator<String> it = this.plugin.getConfig().list.iterator();
-        if (this.plugin.getConfig().mode.equals("whitelist")) {
+        String reason = BaseComponent.toLegacyText(ev.getKickReasonComponent());
+        String[] moveMsg = plugin.getConfig().getString("message").replace("%kickmsg%", reason).split("\n");
+
+        Iterator<String> it = this.plugin.getConfig().getStringList("list").iterator();
+        if (this.plugin.getConfig().getString("mode").equals("whitelist")) {
             while (it.hasNext()) {
                 String next = it.next();
-                if (ev.getKickReason().contains(next)) {
+                if (reason.contains(next)) {
                     ev.setCancelled(true);
                     ev.setCancelServer(kickTo);
-                    if (plugin.getConfig().sendmovemsg) {
-                        ev.getPlayer().sendMessages(plugin.getConfig().parsemovemsg(ev.getKickReason()));
+                    if (!(moveMsg.length == 1 && moveMsg[0].equals(""))) {
+                        for (String line : moveMsg) {
+                            ev.getPlayer().sendMessage(TextComponent.fromLegacyText(
+                                    ChatColor.translateAlternateColorCodes('&', line)));
+                        }
                     }
-
                     break; // no need to keep this up !
                 }
             }
         } else {
             while (it.hasNext()) {
                 String next = it.next();
-                if (ev.getKickReason().contains(next)) {
+                if (reason.contains(next)) {
                     return;
                 }
             }
             ev.setCancelled(true);
             ev.setCancelServer(kickTo);
-            if (plugin.getConfig().sendmovemsg) {
-                ev.getPlayer().sendMessages(plugin.getConfig().parsemovemsg(ev.getKickReason()));
+            if (!(moveMsg.length == 1 && moveMsg[0].equals(""))) {
+                for (String line : moveMsg) {
+                    ev.getPlayer().sendMessage(TextComponent.fromLegacyText(
+                            ChatColor.translateAlternateColorCodes('&', line)));
+                }
             }
         }
     }
