@@ -9,5 +9,5 @@ deployment:
     branch: master
     owner: CraftMinecraft
     commands:
-      - rsync -avz $CIRCLE_ARTIFACTS/ deployer@cmc.im:/tmp/$CIRCLE_PROJECT_REPONAME\_$CIRCLE_SH1/
-      - ssh deployer@cmc.im "bash -c 'deploy.sh $CIRCLE_PROJECT_REPONAME $CIRCLE_SH1'"
+      - rsync -avz $CIRCLE_ARTIFACTS/ deployer@cmc.im:/tmp/$CIRCLE_PROJECT_REPONAME\_$CIRCLE_SHA1/
+      - ssh deployer@cmc.im "bash -c 'deploy.sh $CIRCLE_PROJECT_REPONAME $CIRCLE_SHA1'"
