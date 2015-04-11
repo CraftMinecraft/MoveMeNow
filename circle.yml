@@ -1,0 +1,13 @@
+machine:
+  java:
+    version: openjdk7
+general:
+  artifacts:
+    - "target/"
+deployment:
+  dlserver:
+    branch: master
+    owner: CraftMinecraft
+    commands:
+      - rsync -avz $CIRCLE_ARTIFACTS/ deployer@cmc.im:/tmp/$CIRCLE_PROJECT_REPONAME_$CIRCLE_SH1/
+      - ssh deployer@cmc.im "bash -c 'deploy.sh $CIRCLE_PROJECT_REPONAME $CIRCLE_SH1'"
