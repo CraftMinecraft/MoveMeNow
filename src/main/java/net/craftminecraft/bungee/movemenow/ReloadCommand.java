@@ -17,10 +17,11 @@ public class ReloadCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (args.length != 1) {
             sender.sendMessage(new TextComponent("Please use /mmn reload."));
-        }
-        switch (args[0]) {
-            case "reload":
-                plugin.loadConfig();
+        } else {
+            switch (args[0]) {
+                case "reload":
+                    plugin.loadConfig();
+            }
         }
     }
 }
