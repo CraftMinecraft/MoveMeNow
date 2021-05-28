@@ -25,8 +25,13 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onServerKickEvent(ServerKickEvent ev) {
+        // Ignore if event is cancelled
+        if (event.isCancelled()) {
+            return;
+        }
+        
         // Protection against NullPointerException
-
+        
         ServerInfo kickedFrom = null;
 
         if (ev.getPlayer().getServer() != null) {
